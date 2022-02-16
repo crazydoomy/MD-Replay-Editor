@@ -1,0 +1,24 @@
+{
+  "name": "playground",
+  "main": "index.ts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "frida-compile -o _.js -w index.ts",
+    "attach": "run() { frida -U \"$1\" -l _.js --runtime=v8; }; run",
+    "spawn": "run() { frida -U -f \"$1\" -l _.js --no-pause --runtime=v8; }; run",
+    "app0-spawn": "npm run spawn com.example.application0",
+    "app1": "npm run \"Application1 Name\"",
+    "app1-spawn": "npm run spawn com.example.application1"
+  },
+  "devDependencies": {
+    "@types/frida-gum": "^17.1.1",
+    "@types/node": "^16.11.25",
+    "frida-compile": "^10.2.5",
+    "frida-il2cpp-bridge": "^0.6.7"
+  },
+  "dependencies": {
+    "frida-fs": "^4.0.0",
+    "fs": "^0.0.1-security"
+  }
+}
