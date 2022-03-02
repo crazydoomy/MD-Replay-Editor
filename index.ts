@@ -1,4 +1,3 @@
-
 import "frida-il2cpp-bridge";
 
 Il2Cpp.perform(() => {
@@ -6,6 +5,7 @@ Il2Cpp.perform(() => {
     const mscorlib = Il2Cpp.Domain.assemblies["mscorlib"].image;
     const SystemBytes =  mscorlib.classes["System.Byte"];
     const deserializeAsync = il2cpplib.classes["YgomSystem.Network.FormatYgom"].methods.DeserializeAsync;
+    const getpubliclevel = il2cpplib.classes["YgomGame.Duel.Util"].methods.GetPublicLevel;
     console.log("attached")
     deserializeAsync.implementation = function (ba : Il2Cpp.Array<number>, onfinish : Il2Cpp.Object) : void {
         var array = [];
@@ -33,5 +33,10 @@ Il2Cpp.perform(() => {
         } else {
             this.methods.DeserializeAsync.invoke(ba, onfinish);
         }
+    }
+    getpubliclevel.implementation = function() {
+        var a = getpubliclevel.invoke<Il2Cpp.Object>()
+        a.fields["value__"].value = 2
+        return a
     }
 });
